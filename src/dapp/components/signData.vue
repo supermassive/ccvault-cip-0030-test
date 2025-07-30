@@ -14,11 +14,12 @@ import {
   setApiTestStatus,
 } from "../lib/ApiTest";
 
-import { isObject, isString, returnsPromise } from "../lib/utils";
+import { isObject, returnsPromise } from "../lib/utils";
 
 import { addApiTest } from "../lib/ApiTestSuite";
 
 import ApiTestUi from "./apiTestUi.vue";
+import { Buffer } from "buffer";
 
 export default defineComponent({
   name: "checkSignData",
@@ -89,18 +90,20 @@ export default defineComponent({
           logId,
           "signData",
           props.signData,
-          [props.addr, "ffffffff"],
+          [props.addr, Buffer.from('hello').toString('hex')],
         );
 
-        if (!isString(r)) {
-          return setApiTestFailed("signData: return type not string");
+        if (!isObject(r)) {
+          return setApiTestFailed("signData: return type not object");
         }
+
+        const rString = JSON.stringify(r, null, 2)
 
         addLogSucceeded(logId, '&bull; "signData" signedData: ' + r);
 
-        signedData.value = r;
+        signedData.value = rString
 
-        addLogImportant(logId, r);
+        addLogImportant(logId, rString);
       } catch (e: any) {
         signedData.value = null;
         addLogError(logId, "signData: error: " + JSON.stringify(e, null, 2));
