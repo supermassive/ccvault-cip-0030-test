@@ -8,7 +8,9 @@
   "scripts": {
     "dev:spa": "quasar dev -m spa",
     "build:spa": "quasar build -m spa",
-    "test": "echo \"No test specified\" && exit 0"
+    "test": "echo \"No test specified\" && exit 0",
+    "predeploy": "quasar build -m spa",
+    "deploy": "gh-pages -d dist/spa"
   },
   "dependencies": {
     "@quasar/extras": "^1.12.2",
@@ -18,6 +20,7 @@
   "devDependencies": {
     "@quasar/app": "^3.2.5",
     "@types/node": "^16.11.13",
+    "gh-pages": "^6.3.0",
     "tailwindcss": "^2.2.19"
   },
   "browserslist": [
