@@ -1,6 +1,5 @@
 import { Buffer } from "buffer";
-
-import * as CSL from "src/dapp/lib/CardanoSerializationLib";
+import * as CSL from "@emurgo/cardano-serialization-lib-asmjs";
 
 import { addLogSucceeded, addLogError, addLogImportant } from "../useApiLog";
 
@@ -270,12 +269,16 @@ export const signTxLocally = (
   try {
     const body = CSL.TransactionBody.from_bytes(toUint8Array(txBody));
     const wit = CSL.TransactionWitnessSet.from_bytes(toUint8Array(witnessSet));
-    const txHash = CSL.hash_transaction(body);
+
     const signedTx = CSL.Transaction.new(body, wit);
+    const fixedTransaction = CSL.FixedTransaction.from_bytes(
+      signedTx.to_bytes(),
+    );
+    const txHash = fixedTransaction.transaction_hash();
 
     addLogImportant(
       logId,
-      "<b><i>seialized: " + toHexString(txHash.to_bytes()) + "</i></b>",
+      "<b><i>serialized: " + toHexString(txHash.to_bytes()) + "</i></b>",
     );
 
     return toHexString(signedTx.to_bytes());

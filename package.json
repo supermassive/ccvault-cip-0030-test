@@ -13,6 +13,7 @@
     "deploy": "gh-pages -d dist/spa"
   },
   "dependencies": {
+    "@emurgo/cardano-serialization-lib-asmjs": "^15.0.0",
     "@quasar/extras": "^1.12.2",
     "core-js": "^3.19.3",
     "quasar": "^2.3.4"
