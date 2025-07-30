@@ -218,18 +218,18 @@ export default defineComponent({
 
         addLogSucceeded(logId, "enable() returned: " + apiObj);
 
-        getNetworkIdFunction.value = apiObj.getNetworkId;
-        getBalanceFunction.value = apiObj.getBalance;
-        getUtxosFunction.value = apiObj.getUtxos;
+        getNetworkIdFunction.value = apiObj.getNetworkId.bind(apiObj);
+        getBalanceFunction.value = apiObj.getBalance.bind(apiObj);
+        getUtxosFunction.value = apiObj.getUtxos.bind(apiObj);
 
-        getUsedAddressesFunction.value = apiObj.getUsedAddresses;
-        getUnusedAddressesFunction.value = apiObj.getUnusedAddresses;
-        getRewardAddressesFunction.value = apiObj.getRewardAddresses;
-        getChangeAddressFunction.value = apiObj.getChangeAddress;
+        getUsedAddressesFunction.value = apiObj.getUsedAddresses.bind(apiObj);
+        getUnusedAddressesFunction.value = apiObj.getUnusedAddresses.bind(apiObj);
+        getRewardAddressesFunction.value = apiObj.getRewardAddresses.bind(apiObj);
+        getChangeAddressFunction.value = apiObj.getChangeAddress.bind(apiObj);
 
-        signDataFunction.value = apiObj.signData;
-        signTxFunction.value = apiObj.signTx;
-        submitTxFunction.value = apiObj.submitTx;
+        signDataFunction.value = apiObj.signData.bind(apiObj);
+        signTxFunction.value = apiObj.signTx.bind(apiObj);
+        submitTxFunction.value = apiObj.submitTx.bind(apiObj);
       } catch (e: any) {
         addLogError(
           logId,
