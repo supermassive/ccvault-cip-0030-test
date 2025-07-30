@@ -10,7 +10,7 @@
  * @returns {TransactionMetadatum}
  */
 declare export function encode_arbitrary_bytes_as_metadatum(
-  bytes: Uint8Array
+  bytes: Uint8Array,
 ): TransactionMetadatum;
 
 /**
@@ -18,7 +18,7 @@ declare export function encode_arbitrary_bytes_as_metadatum(
  * @returns {Uint8Array}
  */
 declare export function decode_arbitrary_bytes_from_metadatum(
-  metadata: TransactionMetadatum
+  metadata: TransactionMetadatum,
 ): Uint8Array;
 
 /**
@@ -28,7 +28,7 @@ declare export function decode_arbitrary_bytes_from_metadatum(
  */
 declare export function encode_json_str_to_metadatum(
   json: string,
-  schema: number
+  schema: number,
 ): TransactionMetadatum;
 
 /**
@@ -38,7 +38,7 @@ declare export function encode_json_str_to_metadatum(
  */
 declare export function decode_metadatum_to_json_str(
   metadatum: TransactionMetadatum,
-  schema: number
+  schema: number,
 ): string;
 
 /**
@@ -50,7 +50,7 @@ declare export function decode_metadatum_to_json_str(
 declare export function make_daedalus_bootstrap_witness(
   tx_body_hash: TransactionHash,
   addr: ByronAddress,
-  key: LegacyDaedalusPrivateKey
+  key: LegacyDaedalusPrivateKey,
 ): BootstrapWitness;
 
 /**
@@ -62,7 +62,7 @@ declare export function make_daedalus_bootstrap_witness(
 declare export function make_icarus_bootstrap_witness(
   tx_body_hash: TransactionHash,
   addr: ByronAddress,
-  key: Bip32PrivateKey
+  key: Bip32PrivateKey,
 ): BootstrapWitness;
 
 /**
@@ -72,7 +72,7 @@ declare export function make_icarus_bootstrap_witness(
  */
 declare export function make_vkey_witness(
   tx_body_hash: TransactionHash,
-  sk: PrivateKey
+  sk: PrivateKey,
 ): Vkeywitness;
 
 /**
@@ -80,7 +80,7 @@ declare export function make_vkey_witness(
  * @returns {AuxiliaryDataHash}
  */
 declare export function hash_auxiliary_data(
-  auxiliary_data: AuxiliaryData
+  auxiliary_data: AuxiliaryData,
 ): AuxiliaryDataHash;
 
 /**
@@ -88,7 +88,7 @@ declare export function hash_auxiliary_data(
  * @returns {TransactionHash}
  */
 declare export function hash_transaction(
-  tx_body: TransactionBody
+  tx_body: TransactionBody,
 ): TransactionHash;
 
 /**
@@ -106,7 +106,7 @@ declare export function hash_plutus_data(plutus_data: PlutusData): DataHash;
 declare export function hash_script_data(
   redeemers: Redeemers,
   cost_models: Costmdls,
-  datums?: PlutusList
+  datums?: PlutusList,
 ): ScriptDataHash;
 
 /**
@@ -118,7 +118,7 @@ declare export function hash_script_data(
 declare export function get_implicit_input(
   txbody: TransactionBody,
   pool_deposit: BigNum,
-  key_deposit: BigNum
+  key_deposit: BigNum,
 ): Value;
 
 /**
@@ -130,7 +130,7 @@ declare export function get_implicit_input(
 declare export function get_deposit(
   txbody: TransactionBody,
   pool_deposit: BigNum,
-  key_deposit: BigNum
+  key_deposit: BigNum,
 ): BigNum;
 
 /**
@@ -140,7 +140,7 @@ declare export function get_deposit(
  */
 declare export function min_ada_required(
   assets: Value,
-  minimum_utxo_val: BigNum
+  minimum_utxo_val: BigNum,
 ): BigNum;
 
 /**
@@ -160,7 +160,7 @@ declare export function min_ada_required(
 declare export function encode_json_str_to_native_script(
   json: string,
   self_xpub: string,
-  schema: number
+  schema: number,
 ): NativeScript;
 
 /**
@@ -174,7 +174,7 @@ declare export function encrypt_with_password(
   password: string,
   salt: string,
   nonce: string,
-  data: string
+  data: string,
 ): string;
 
 /**
@@ -184,7 +184,7 @@ declare export function encrypt_with_password(
  */
 declare export function decrypt_with_password(
   password: string,
-  data: string
+  data: string,
 ): string;
 
 /**
@@ -595,7 +595,7 @@ declare export class BaseAddress {
   static new(
     network: number,
     payment: StakeCredential,
-    stake: StakeCredential
+    stake: StakeCredential,
   ): BaseAddress;
 
   /**
@@ -812,7 +812,7 @@ declare export class Bip32PrivateKey {
    */
   static from_bip39_entropy(
     entropy: Uint8Array,
-    password: Uint8Array
+    password: Uint8Array,
   ): Bip32PrivateKey;
 
   /**
@@ -940,7 +940,7 @@ declare export class Block {
     transaction_bodies: TransactionBodies,
     transaction_witness_sets: TransactionWitnessSets,
     auxiliary_data_set: AuxiliaryDataSet,
-    invalid_transactions: Uint32Array
+    invalid_transactions: Uint32Array,
   ): Block;
 }
 /**
@@ -1018,7 +1018,7 @@ declare export class BootstrapWitness {
     vkey: Vkey,
     signature: Ed25519Signature,
     chain_code: Uint8Array,
-    attributes: Uint8Array
+    attributes: Uint8Array,
   ): BootstrapWitness;
 }
 /**
@@ -1098,7 +1098,7 @@ declare export class ByronAddress {
    */
   static icarus_from_key(
     key: Bip32PublicKey,
-    protocol_magic: number
+    protocol_magic: number,
   ): ByronAddress;
 
   /**
@@ -1139,7 +1139,7 @@ declare export class Certificate {
    * @returns {Certificate}
    */
   static new_stake_registration(
-    stake_registration: StakeRegistration
+    stake_registration: StakeRegistration,
   ): Certificate;
 
   /**
@@ -1147,7 +1147,7 @@ declare export class Certificate {
    * @returns {Certificate}
    */
   static new_stake_deregistration(
-    stake_deregistration: StakeDeregistration
+    stake_deregistration: StakeDeregistration,
   ): Certificate;
 
   /**
@@ -1161,7 +1161,7 @@ declare export class Certificate {
    * @returns {Certificate}
    */
   static new_pool_registration(
-    pool_registration: PoolRegistration
+    pool_registration: PoolRegistration,
   ): Certificate;
 
   /**
@@ -1175,7 +1175,7 @@ declare export class Certificate {
    * @returns {Certificate}
    */
   static new_genesis_key_delegation(
-    genesis_key_delegation: GenesisKeyDelegation
+    genesis_key_delegation: GenesisKeyDelegation,
   ): Certificate;
 
   /**
@@ -1183,7 +1183,7 @@ declare export class Certificate {
    * @returns {Certificate}
    */
   static new_move_instantaneous_rewards_cert(
-    move_instantaneous_rewards_cert: MoveInstantaneousRewardsCert
+    move_instantaneous_rewards_cert: MoveInstantaneousRewardsCert,
   ): Certificate;
 
   /**
@@ -1830,7 +1830,7 @@ declare export class GenesisKeyDelegation {
   static new(
     genesishash: GenesisHash,
     genesis_delegate_hash: GenesisDelegateHash,
-    vrf_keyhash: VRFKeyHash
+    vrf_keyhash: VRFKeyHash,
   ): GenesisKeyDelegation;
 }
 /**
@@ -1962,7 +1962,7 @@ declare export class HeaderBody {
     block_body_size: number,
     block_body_hash: BlockHash,
     operational_cert: OperationalCert,
-    protocol_version: ProtocolVersion
+    protocol_version: ProtocolVersion,
   ): HeaderBody;
 }
 /**
@@ -2315,7 +2315,7 @@ declare export class MetadataMap {
    */
   insert(
     key: TransactionMetadatum,
-    value: TransactionMetadatum
+    value: TransactionMetadatum,
   ): TransactionMetadatum | void;
 
   /**
@@ -2325,7 +2325,7 @@ declare export class MetadataMap {
    */
   insert_str(
     key: string,
-    value: TransactionMetadatum
+    value: TransactionMetadatum,
   ): TransactionMetadatum | void;
 
   /**
@@ -2335,7 +2335,7 @@ declare export class MetadataMap {
    */
   insert_i32(
     key: number,
-    value: TransactionMetadatum
+    value: TransactionMetadatum,
   ): TransactionMetadatum | void;
 
   /**
@@ -2474,7 +2474,7 @@ declare export class MoveInstantaneousReward {
    */
   static new_to_stake_creds(
     pot: number,
-    amounts: MIRToStakeCredentials
+    amounts: MIRToStakeCredentials,
   ): MoveInstantaneousReward;
 
   /**
@@ -2523,7 +2523,7 @@ declare export class MoveInstantaneousRewardsCert {
    * @returns {MoveInstantaneousRewardsCert}
    */
   static new(
-    move_instantaneous_reward: MoveInstantaneousReward
+    move_instantaneous_reward: MoveInstantaneousReward,
   ): MoveInstantaneousRewardsCert;
 }
 /**
@@ -2865,7 +2865,7 @@ declare export class OperationalCert {
     hot_vkey: KESVKey,
     sequence_number: number,
     kes_period: number,
-    sigma: Ed25519Signature
+    sigma: Ed25519Signature,
   ): OperationalCert;
 }
 /**
@@ -2889,7 +2889,7 @@ declare export class PlutusData {
    * @returns {PlutusData}
    */
   static new_constr_plutus_data(
-    constr_plutus_data: ConstrPlutusData
+    constr_plutus_data: ConstrPlutusData,
   ): PlutusData;
 
   /**
@@ -3133,7 +3133,7 @@ declare export class PointerAddress {
   static new(
     network: number,
     payment: StakeCredential,
-    stake: Pointer
+    stake: Pointer,
   ): PointerAddress;
 
   /**
@@ -3300,7 +3300,7 @@ declare export class PoolParams {
     reward_account: RewardAddress,
     pool_owners: Ed25519KeyHashes,
     relays: Relays,
-    pool_metadata?: PoolMetadata
+    pool_metadata?: PoolMetadata,
   ): PoolParams;
 }
 /**
@@ -3458,7 +3458,7 @@ declare export class ProposedProtocolParameterUpdates {
    */
   insert(
     key: GenesisHash,
-    value: ProtocolParamUpdate
+    value: ProtocolParamUpdate,
   ): ProtocolParamUpdate | void;
 
   /**
@@ -3900,7 +3900,7 @@ declare export class Redeemer {
     tag: RedeemerTag,
     index: BigNum,
     data: PlutusData,
-    ex_units: ExUnits
+    ex_units: ExUnits,
   ): Redeemer;
 }
 /**
@@ -4529,7 +4529,7 @@ declare export class StakeDelegation {
    */
   static new(
     stake_credential: StakeCredential,
-    pool_keyhash: Ed25519KeyHash
+    pool_keyhash: Ed25519KeyHash,
   ): StakeDelegation;
 }
 /**
@@ -4706,7 +4706,7 @@ declare export class Transaction {
   static new(
     body: TransactionBody,
     witness_set: TransactionWitnessSet,
-    auxiliary_data?: AuxiliaryData
+    auxiliary_data?: AuxiliaryData,
   ): Transaction;
 }
 /**
@@ -4893,7 +4893,7 @@ declare export class TransactionBody {
     inputs: TransactionInputs,
     outputs: TransactionOutputs,
     fee: BigNum,
-    ttl?: number
+    ttl?: number,
   ): TransactionBody;
 }
 /**
@@ -4909,7 +4909,7 @@ declare export class TransactionBuilder {
   add_key_input(
     hash: Ed25519KeyHash,
     input: TransactionInput,
-    amount: Value
+    amount: Value,
   ): void;
 
   /**
@@ -4920,7 +4920,7 @@ declare export class TransactionBuilder {
   add_script_input(
     hash: ScriptHash,
     input: TransactionInput,
-    amount: Value
+    amount: Value,
   ): void;
 
   /**
@@ -4931,7 +4931,7 @@ declare export class TransactionBuilder {
   add_bootstrap_input(
     hash: ByronAddress,
     input: TransactionInput,
-    amount: Value
+    amount: Value,
   ): void;
 
   /**
@@ -4951,7 +4951,7 @@ declare export class TransactionBuilder {
   fee_for_input(
     address: Address,
     input: TransactionInput,
-    amount: Value
+    amount: Value,
   ): BigNum;
 
   /**
@@ -5016,7 +5016,7 @@ declare export class TransactionBuilder {
     pool_deposit: BigNum,
     key_deposit: BigNum,
     max_value_size: number,
-    max_tx_size: number
+    max_tx_size: number,
   ): TransactionBuilder;
 
   /**
@@ -5391,7 +5391,7 @@ declare export class TransactionUnspentOutput {
    */
   static new(
     input: TransactionInput,
-    output: TransactionOutput
+    output: TransactionOutput,
   ): TransactionUnspentOutput;
 
   /**
@@ -5615,7 +5615,7 @@ declare export class Update {
    */
   static new(
     proposed_protocol_parameter_updates: ProposedProtocolParameterUpdates,
-    epoch: number
+    epoch: number,
   ): Update;
 }
 /**
@@ -6014,7 +6014,7 @@ export interface InitOutput {
     b: number,
     c: number,
     d: number,
-    e: number
+    e: number,
   ) => number;
   +__wbg_transactioninput_free: (a: number) => void;
   +transactioninput_to_bytes: (a: number, b: number) => void;
@@ -6081,7 +6081,7 @@ export interface InitOutput {
     f: number,
     g: number,
     h: number,
-    i: number
+    i: number,
   ) => number;
   +__wbg_poolregistration_free: (a: number) => void;
   +poolregistration_to_bytes: (a: number, b: number) => void;
@@ -6105,7 +6105,7 @@ export interface InitOutput {
   +moveinstantaneousrewardscert_to_bytes: (a: number, b: number) => void;
   +moveinstantaneousrewardscert_from_bytes: (a: number, b: number) => number;
   +moveinstantaneousrewardscert_move_instantaneous_reward: (
-    a: number
+    a: number,
   ) => number;
   +moveinstantaneousrewardscert_new: (a: number) => number;
   +__wbg_certificate_free: (a: number) => void;
@@ -6317,14 +6317,14 @@ export interface InitOutput {
   +proposedprotocolparameterupdates_to_bytes: (a: number, b: number) => void;
   +proposedprotocolparameterupdates_from_bytes: (
     a: number,
-    b: number
+    b: number,
   ) => number;
   +proposedprotocolparameterupdates_new: () => number;
   +proposedprotocolparameterupdates_len: (a: number) => number;
   +proposedprotocolparameterupdates_insert: (
     a: number,
     b: number,
-    c: number
+    c: number,
   ) => number;
   +proposedprotocolparameterupdates_get: (a: number, b: number) => number;
   +proposedprotocolparameterupdates_keys: (a: number) => number;
@@ -6354,7 +6354,7 @@ export interface InitOutput {
   +protocolparamupdate_max_tx_size: (a: number, b: number) => void;
   +protocolparamupdate_set_max_block_header_size: (
     a: number,
-    b: number
+    b: number,
   ) => void;
   +protocolparamupdate_max_block_header_size: (a: number, b: number) => void;
   +protocolparamupdate_set_key_deposit: (a: number, b: number) => void;
@@ -6367,7 +6367,7 @@ export interface InitOutput {
   +protocolparamupdate_n_opt: (a: number, b: number) => void;
   +protocolparamupdate_set_pool_pledge_influence: (
     a: number,
-    b: number
+    b: number,
   ) => void;
   +protocolparamupdate_pool_pledge_influence: (a: number) => number;
   +protocolparamupdate_set_expansion_rate: (a: number, b: number) => void;
@@ -6429,7 +6429,7 @@ export interface InitOutput {
     c: number,
     d: number,
     e: number,
-    f: number
+    f: number,
   ) => number;
   +__wbg_header_free: (a: number) => void;
   +header_to_bytes: (a: number, b: number) => void;
@@ -6470,7 +6470,7 @@ export interface InitOutput {
     h: number,
     i: number,
     j: number,
-    k: number
+    k: number,
   ) => number;
   +__wbg_assetname_free: (a: number) => void;
   +assetname_to_bytes: (a: number, b: number) => void;
@@ -6531,7 +6531,7 @@ export interface InitOutput {
     a: number,
     b: number,
     c: number,
-    d: number
+    d: number,
   ) => number;
   +metadatamap_insert_i32: (a: number, b: number, c: number) => number;
   +metadatamap_get: (a: number, b: number) => number;
@@ -6575,7 +6575,7 @@ export interface InitOutput {
   +generaltransactionmetadata_insert: (
     a: number,
     b: number,
-    c: number
+    c: number,
   ) => number;
   +generaltransactionmetadata_get: (a: number, b: number) => number;
   +generaltransactionmetadata_keys: (a: number) => number;
@@ -6654,7 +6654,7 @@ export interface InitOutput {
     b: number,
     c: number,
     d: number,
-    e: number
+    e: number,
   ) => number;
   +encrypt_with_password: (
     a: number,
@@ -6665,14 +6665,14 @@ export interface InitOutput {
     f: number,
     g: number,
     h: number,
-    i: number
+    i: number,
   ) => void;
   +decrypt_with_password: (
     a: number,
     b: number,
     c: number,
     d: number,
-    e: number
+    e: number,
   ) => void;
   +__wbg_linearfee_free: (a: number) => void;
   +linearfee_constant: (a: number) => number;
@@ -6684,31 +6684,31 @@ export interface InitOutput {
     a: number,
     b: number,
     c: number,
-    d: number
+    d: number,
   ) => void;
   +transactionbuilder_add_script_input: (
     a: number,
     b: number,
     c: number,
-    d: number
+    d: number,
   ) => void;
   +transactionbuilder_add_bootstrap_input: (
     a: number,
     b: number,
     c: number,
-    d: number
+    d: number,
   ) => void;
   +transactionbuilder_add_input: (
     a: number,
     b: number,
     c: number,
-    d: number
+    d: number,
   ) => void;
   +transactionbuilder_fee_for_input: (
     a: number,
     b: number,
     c: number,
-    d: number
+    d: number,
   ) => number;
   +transactionbuilder_add_output: (a: number, b: number) => void;
   +transactionbuilder_fee_for_output: (a: number, b: number) => number;
@@ -6716,7 +6716,7 @@ export interface InitOutput {
   +transactionbuilder_set_ttl: (a: number, b: number) => void;
   +transactionbuilder_set_validity_start_interval: (
     a: number,
-    b: number
+    b: number,
   ) => void;
   +transactionbuilder_set_certs: (a: number, b: number) => void;
   +transactionbuilder_set_withdrawals: (a: number, b: number) => void;
@@ -6728,7 +6728,7 @@ export interface InitOutput {
     c: number,
     d: number,
     e: number,
-    f: number
+    f: number,
   ) => number;
   +transactionbuilder_get_explicit_input: (a: number) => number;
   +transactionbuilder_get_implicit_input: (a: number) => number;
@@ -6755,7 +6755,7 @@ export interface InitOutput {
     a: number,
     b: number,
     c: number,
-    d: number
+    d: number,
   ) => number;
   +bip32privatekey_chaincode: (a: number, b: number) => void;
   +__wbg_bip32publickey_free: (a: number) => void;
@@ -6817,7 +6817,7 @@ export interface InitOutput {
     c: number,
     d: number,
     e: number,
-    f: number
+    f: number,
   ) => number;
   +__wbg_bootstrapwitnesses_free: (a: number) => void;
   +bootstrapwitnesses_new: () => number;
@@ -6846,7 +6846,7 @@ export interface InitOutput {
     a: number,
     b: number,
     c: number,
-    d: number
+    d: number,
   ) => void;
   +ed25519keyhash_from_bech32: (a: number, b: number) => number;
   +ed25519keyhash_from_bytes: (a: number, b: number) => number;
@@ -6861,7 +6861,7 @@ export interface InitOutput {
     a: number,
     b: number,
     c: number,
-    d: number
+    d: number,
   ) => void;
   +transactionhash_from_bech32: (a: number, b: number) => number;
   +transactionhash_from_bytes: (a: number, b: number) => number;
@@ -6871,7 +6871,7 @@ export interface InitOutput {
     a: number,
     b: number,
     c: number,
-    d: number
+    d: number,
   ) => void;
   +genesisdelegatehash_from_bech32: (a: number, b: number) => number;
   +genesisdelegatehash_from_bytes: (a: number, b: number) => number;
@@ -6886,7 +6886,7 @@ export interface InitOutput {
     a: number,
     b: number,
     c: number,
-    d: number
+    d: number,
   ) => void;
   +auxiliarydatahash_from_bech32: (a: number, b: number) => number;
   +auxiliarydatahash_from_bytes: (a: number, b: number) => number;
@@ -6896,7 +6896,7 @@ export interface InitOutput {
     a: number,
     b: number,
     c: number,
-    d: number
+    d: number,
   ) => void;
   +poolmetadatahash_from_bech32: (a: number, b: number) => number;
   +poolmetadatahash_from_bytes: (a: number, b: number) => number;
@@ -6921,7 +6921,7 @@ export interface InitOutput {
     a: number,
     b: number,
     c: number,
-    d: number
+    d: number,
   ) => void;
   +scriptdatahash_from_bech32: (a: number, b: number) => number;
   +scriptdatahash_from_bytes: (a: number, b: number) => number;
@@ -7132,5 +7132,5 @@ export interface InitOutput {
  * @returns {Promise<InitOutput>}
  */
 declare export default function init(
-  module_or_path?: InitInput | Promise<InitInput>
+  module_or_path?: InitInput | Promise<InitInput>,
 ): Promise<InitOutput>;

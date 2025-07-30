@@ -48,21 +48,42 @@ export function transactionbody_set_withdrawals(a: number, b: number): void;
 export function transactionbody_withdrawals(a: number): number;
 export function transactionbody_set_update(a: number, b: number): void;
 export function transactionbody_update(a: number): number;
-export function transactionbody_set_auxiliary_data_hash(a: number, b: number): void;
+export function transactionbody_set_auxiliary_data_hash(
+  a: number,
+  b: number,
+): void;
 export function transactionbody_auxiliary_data_hash(a: number): number;
-export function transactionbody_set_validity_start_interval(a: number, b: number): void;
-export function transactionbody_validity_start_interval(a: number, b: number): void;
+export function transactionbody_set_validity_start_interval(
+  a: number,
+  b: number,
+): void;
+export function transactionbody_validity_start_interval(
+  a: number,
+  b: number,
+): void;
 export function transactionbody_set_mint(a: number, b: number): void;
 export function transactionbody_multiassets(a: number): number;
-export function transactionbody_set_script_data_hash(a: number, b: number): void;
+export function transactionbody_set_script_data_hash(
+  a: number,
+  b: number,
+): void;
 export function transactionbody_script_data_hash(a: number): number;
 export function transactionbody_set_collateral(a: number, b: number): void;
 export function transactionbody_collateral(a: number): number;
-export function transactionbody_set_required_signers(a: number, b: number): void;
+export function transactionbody_set_required_signers(
+  a: number,
+  b: number,
+): void;
 export function transactionbody_required_signers(a: number): number;
 export function transactionbody_set_network_id(a: number, b: number): void;
 export function transactionbody_network_id(a: number): number;
-export function transactionbody_new(a: number, b: number, c: number, d: number, e: number): number;
+export function transactionbody_new(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+  e: number,
+): number;
 export function __wbg_transactioninput_free(a: number): void;
 export function transactioninput_to_bytes(a: number, b: number): void;
 export function transactioninput_from_bytes(a: number, b: number): number;
@@ -119,7 +140,17 @@ export function poolparams_reward_account(a: number): number;
 export function poolparams_pool_owners(a: number): number;
 export function poolparams_relays(a: number): number;
 export function poolparams_pool_metadata(a: number): number;
-export function poolparams_new(a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number): number;
+export function poolparams_new(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+  e: number,
+  f: number,
+  g: number,
+  h: number,
+  i: number,
+): number;
 export function __wbg_poolregistration_free(a: number): void;
 export function poolregistration_to_bytes(a: number, b: number): void;
 export function poolregistration_from_bytes(a: number, b: number): number;
@@ -137,11 +168,23 @@ export function genesiskeydelegation_from_bytes(a: number, b: number): number;
 export function genesiskeydelegation_genesishash(a: number): number;
 export function genesiskeydelegation_genesis_delegate_hash(a: number): number;
 export function genesiskeydelegation_vrf_keyhash(a: number): number;
-export function genesiskeydelegation_new(a: number, b: number, c: number): number;
+export function genesiskeydelegation_new(
+  a: number,
+  b: number,
+  c: number,
+): number;
 export function __wbg_moveinstantaneousrewardscert_free(a: number): void;
-export function moveinstantaneousrewardscert_to_bytes(a: number, b: number): void;
-export function moveinstantaneousrewardscert_from_bytes(a: number, b: number): number;
-export function moveinstantaneousrewardscert_move_instantaneous_reward(a: number): number;
+export function moveinstantaneousrewardscert_to_bytes(
+  a: number,
+  b: number,
+): void;
+export function moveinstantaneousrewardscert_from_bytes(
+  a: number,
+  b: number,
+): number;
+export function moveinstantaneousrewardscert_move_instantaneous_reward(
+  a: number,
+): number;
 export function moveinstantaneousrewardscert_new(a: number): number;
 export function __wbg_certificate_free(a: number): void;
 export function certificate_to_bytes(a: number, b: number): void;
@@ -152,7 +195,9 @@ export function certificate_new_stake_delegation(a: number): number;
 export function certificate_new_pool_registration(a: number): number;
 export function certificate_new_pool_retirement(a: number): number;
 export function certificate_new_genesis_key_delegation(a: number): number;
-export function certificate_new_move_instantaneous_rewards_cert(a: number): number;
+export function certificate_new_move_instantaneous_rewards_cert(
+  a: number,
+): number;
 export function certificate_kind(a: number): number;
 export function certificate_as_stake_registration(a: number): number;
 export function certificate_as_stake_deregistration(a: number): number;
@@ -160,20 +205,35 @@ export function certificate_as_stake_delegation(a: number): number;
 export function certificate_as_pool_registration(a: number): number;
 export function certificate_as_pool_retirement(a: number): number;
 export function certificate_as_genesis_key_delegation(a: number): number;
-export function certificate_as_move_instantaneous_rewards_cert(a: number): number;
+export function certificate_as_move_instantaneous_rewards_cert(
+  a: number,
+): number;
 export function __wbg_mirtostakecredentials_free(a: number): void;
 export function mirtostakecredentials_to_bytes(a: number, b: number): void;
 export function mirtostakecredentials_from_bytes(a: number, b: number): number;
 export function mirtostakecredentials_new(): number;
 export function mirtostakecredentials_len(a: number): number;
-export function mirtostakecredentials_insert(a: number, b: number, c: number): number;
+export function mirtostakecredentials_insert(
+  a: number,
+  b: number,
+  c: number,
+): number;
 export function mirtostakecredentials_get(a: number, b: number): number;
 export function mirtostakecredentials_keys(a: number): number;
 export function __wbg_moveinstantaneousreward_free(a: number): void;
 export function moveinstantaneousreward_to_bytes(a: number, b: number): void;
-export function moveinstantaneousreward_from_bytes(a: number, b: number): number;
-export function moveinstantaneousreward_new_to_other_pot(a: number, b: number): number;
-export function moveinstantaneousreward_new_to_stake_creds(a: number, b: number): number;
+export function moveinstantaneousreward_from_bytes(
+  a: number,
+  b: number,
+): number;
+export function moveinstantaneousreward_new_to_other_pot(
+  a: number,
+  b: number,
+): number;
+export function moveinstantaneousreward_new_to_stake_creds(
+  a: number,
+  b: number,
+): number;
 export function moveinstantaneousreward_pot(a: number): number;
 export function moveinstantaneousreward_kind(a: number): number;
 export function moveinstantaneousreward_as_to_other_pot(a: number): number;
@@ -264,13 +324,25 @@ export function transactionwitnessset_to_bytes(a: number, b: number): void;
 export function transactionwitnessset_from_bytes(a: number, b: number): number;
 export function transactionwitnessset_set_vkeys(a: number, b: number): void;
 export function transactionwitnessset_vkeys(a: number): number;
-export function transactionwitnessset_set_native_scripts(a: number, b: number): void;
+export function transactionwitnessset_set_native_scripts(
+  a: number,
+  b: number,
+): void;
 export function transactionwitnessset_native_scripts(a: number): number;
-export function transactionwitnessset_set_bootstraps(a: number, b: number): void;
+export function transactionwitnessset_set_bootstraps(
+  a: number,
+  b: number,
+): void;
 export function transactionwitnessset_bootstraps(a: number): number;
-export function transactionwitnessset_set_plutus_scripts(a: number, b: number): void;
+export function transactionwitnessset_set_plutus_scripts(
+  a: number,
+  b: number,
+): void;
 export function transactionwitnessset_plutus_scripts(a: number): number;
-export function transactionwitnessset_set_plutus_data(a: number, b: number): void;
+export function transactionwitnessset_set_plutus_data(
+  a: number,
+  b: number,
+): void;
 export function transactionwitnessset_plutus_data(a: number): number;
 export function transactionwitnessset_set_redeemers(a: number, b: number): void;
 export function transactionwitnessset_redeemers(a: number): number;
@@ -349,12 +421,25 @@ export function scripthashes_len(a: number): number;
 export function scripthashes_get(a: number, b: number): number;
 export function scripthashes_add(a: number, b: number): void;
 export function __wbg_proposedprotocolparameterupdates_free(a: number): void;
-export function proposedprotocolparameterupdates_to_bytes(a: number, b: number): void;
-export function proposedprotocolparameterupdates_from_bytes(a: number, b: number): number;
+export function proposedprotocolparameterupdates_to_bytes(
+  a: number,
+  b: number,
+): void;
+export function proposedprotocolparameterupdates_from_bytes(
+  a: number,
+  b: number,
+): number;
 export function proposedprotocolparameterupdates_new(): number;
 export function proposedprotocolparameterupdates_len(a: number): number;
-export function proposedprotocolparameterupdates_insert(a: number, b: number, c: number): number;
-export function proposedprotocolparameterupdates_get(a: number, b: number): number;
+export function proposedprotocolparameterupdates_insert(
+  a: number,
+  b: number,
+  c: number,
+): number;
+export function proposedprotocolparameterupdates_get(
+  a: number,
+  b: number,
+): number;
 export function proposedprotocolparameterupdates_keys(a: number): number;
 export function __wbg_protocolversion_free(a: number): void;
 export function protocolversion_to_bytes(a: number, b: number): void;
@@ -376,45 +461,93 @@ export function protocolparamupdate_set_minfee_a(a: number, b: number): void;
 export function protocolparamupdate_minfee_a(a: number): number;
 export function protocolparamupdate_set_minfee_b(a: number, b: number): void;
 export function protocolparamupdate_minfee_b(a: number): number;
-export function protocolparamupdate_set_max_block_body_size(a: number, b: number): void;
-export function protocolparamupdate_max_block_body_size(a: number, b: number): void;
+export function protocolparamupdate_set_max_block_body_size(
+  a: number,
+  b: number,
+): void;
+export function protocolparamupdate_max_block_body_size(
+  a: number,
+  b: number,
+): void;
 export function protocolparamupdate_set_max_tx_size(a: number, b: number): void;
 export function protocolparamupdate_max_tx_size(a: number, b: number): void;
-export function protocolparamupdate_set_max_block_header_size(a: number, b: number): void;
-export function protocolparamupdate_max_block_header_size(a: number, b: number): void;
+export function protocolparamupdate_set_max_block_header_size(
+  a: number,
+  b: number,
+): void;
+export function protocolparamupdate_max_block_header_size(
+  a: number,
+  b: number,
+): void;
 export function protocolparamupdate_set_key_deposit(a: number, b: number): void;
 export function protocolparamupdate_key_deposit(a: number): number;
-export function protocolparamupdate_set_pool_deposit(a: number, b: number): void;
+export function protocolparamupdate_set_pool_deposit(
+  a: number,
+  b: number,
+): void;
 export function protocolparamupdate_pool_deposit(a: number): number;
 export function protocolparamupdate_set_max_epoch(a: number, b: number): void;
 export function protocolparamupdate_max_epoch(a: number, b: number): void;
 export function protocolparamupdate_set_n_opt(a: number, b: number): void;
 export function protocolparamupdate_n_opt(a: number, b: number): void;
-export function protocolparamupdate_set_pool_pledge_influence(a: number, b: number): void;
+export function protocolparamupdate_set_pool_pledge_influence(
+  a: number,
+  b: number,
+): void;
 export function protocolparamupdate_pool_pledge_influence(a: number): number;
-export function protocolparamupdate_set_expansion_rate(a: number, b: number): void;
+export function protocolparamupdate_set_expansion_rate(
+  a: number,
+  b: number,
+): void;
 export function protocolparamupdate_expansion_rate(a: number): number;
-export function protocolparamupdate_set_treasury_growth_rate(a: number, b: number): void;
+export function protocolparamupdate_set_treasury_growth_rate(
+  a: number,
+  b: number,
+): void;
 export function protocolparamupdate_treasury_growth_rate(a: number): number;
 export function protocolparamupdate_set_d(a: number, b: number): void;
 export function protocolparamupdate_d(a: number): number;
-export function protocolparamupdate_set_extra_entropy(a: number, b: number): void;
+export function protocolparamupdate_set_extra_entropy(
+  a: number,
+  b: number,
+): void;
 export function protocolparamupdate_extra_entropy(a: number): number;
-export function protocolparamupdate_set_protocol_version(a: number, b: number): void;
+export function protocolparamupdate_set_protocol_version(
+  a: number,
+  b: number,
+): void;
 export function protocolparamupdate_protocol_version(a: number): number;
-export function protocolparamupdate_set_min_pool_cost(a: number, b: number): void;
+export function protocolparamupdate_set_min_pool_cost(
+  a: number,
+  b: number,
+): void;
 export function protocolparamupdate_min_pool_cost(a: number): number;
-export function protocolparamupdate_set_ada_per_utxo_byte(a: number, b: number): void;
+export function protocolparamupdate_set_ada_per_utxo_byte(
+  a: number,
+  b: number,
+): void;
 export function protocolparamupdate_ada_per_utxo_byte(a: number): number;
 export function protocolparamupdate_set_cost_models(a: number, b: number): void;
 export function protocolparamupdate_cost_models(a: number): number;
-export function protocolparamupdate_set_execution_costs(a: number, b: number): void;
+export function protocolparamupdate_set_execution_costs(
+  a: number,
+  b: number,
+): void;
 export function protocolparamupdate_execution_costs(a: number): number;
-export function protocolparamupdate_set_max_tx_ex_units(a: number, b: number): void;
+export function protocolparamupdate_set_max_tx_ex_units(
+  a: number,
+  b: number,
+): void;
 export function protocolparamupdate_max_tx_ex_units(a: number): number;
-export function protocolparamupdate_set_max_block_ex_units(a: number, b: number): void;
+export function protocolparamupdate_set_max_block_ex_units(
+  a: number,
+  b: number,
+): void;
 export function protocolparamupdate_max_block_ex_units(a: number): number;
-export function protocolparamupdate_set_max_value_size(a: number, b: number): void;
+export function protocolparamupdate_set_max_value_size(
+  a: number,
+  b: number,
+): void;
 export function protocolparamupdate_max_value_size(a: number, b: number): void;
 export function protocolparamupdate_new(): number;
 export function __wbg_transactionbodies_free(a: number): void;
@@ -434,7 +567,11 @@ export function transactionwitnesssets_add(a: number, b: number): void;
 export function __wbg_auxiliarydataset_free(a: number): void;
 export function auxiliarydataset_new(): number;
 export function auxiliarydataset_len(a: number): number;
-export function auxiliarydataset_insert(a: number, b: number, c: number): number;
+export function auxiliarydataset_insert(
+  a: number,
+  b: number,
+  c: number,
+): number;
 export function auxiliarydataset_get(a: number, b: number): number;
 export function auxiliarydataset_indices(a: number, b: number): void;
 export function __wbg_block_free(a: number): void;
@@ -445,7 +582,14 @@ export function block_transaction_bodies(a: number): number;
 export function block_transaction_witness_sets(a: number): number;
 export function block_auxiliary_data_set(a: number): number;
 export function block_invalid_transactions(a: number, b: number): void;
-export function block_new(a: number, b: number, c: number, d: number, e: number, f: number): number;
+export function block_new(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+  e: number,
+  f: number,
+): number;
 export function __wbg_header_free(a: number): void;
 export function header_to_bytes(a: number, b: number): void;
 export function header_from_bytes(a: number, b: number): number;
@@ -459,7 +603,12 @@ export function operationalcert_hot_vkey(a: number): number;
 export function operationalcert_sequence_number(a: number): number;
 export function operationalcert_kes_period(a: number): number;
 export function operationalcert_sigma(a: number): number;
-export function operationalcert_new(a: number, b: number, c: number, d: number): number;
+export function operationalcert_new(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+): number;
 export function __wbg_headerbody_free(a: number): void;
 export function headerbody_to_bytes(a: number, b: number): void;
 export function headerbody_from_bytes(a: number, b: number): number;
@@ -474,7 +623,19 @@ export function headerbody_block_body_size(a: number): number;
 export function headerbody_block_body_hash(a: number): number;
 export function headerbody_operational_cert(a: number): number;
 export function headerbody_protocol_version(a: number): number;
-export function headerbody_new(a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number): number;
+export function headerbody_new(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+  e: number,
+  f: number,
+  g: number,
+  h: number,
+  i: number,
+  j: number,
+  k: number,
+): number;
 export function __wbg_assetname_free(a: number): void;
 export function assetname_to_bytes(a: number, b: number): void;
 export function assetname_from_bytes(a: number, b: number): number;
@@ -530,7 +691,12 @@ export function metadatamap_from_bytes(a: number, b: number): number;
 export function metadatamap_new(): number;
 export function metadatamap_len(a: number): number;
 export function metadatamap_insert(a: number, b: number, c: number): number;
-export function metadatamap_insert_str(a: number, b: number, c: number, d: number): number;
+export function metadatamap_insert_str(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+): number;
 export function metadatamap_insert_i32(a: number, b: number, c: number): number;
 export function metadatamap_get(a: number, b: number): number;
 export function metadatamap_get_str(a: number, b: number, c: number): number;
@@ -560,17 +726,27 @@ export function transactionmetadatum_as_bytes(a: number, b: number): void;
 export function transactionmetadatum_as_text(a: number, b: number): void;
 export function __wbg_transactionmetadatumlabels_free(a: number): void;
 export function transactionmetadatumlabels_to_bytes(a: number, b: number): void;
-export function transactionmetadatumlabels_from_bytes(a: number, b: number): number;
+export function transactionmetadatumlabels_from_bytes(
+  a: number,
+  b: number,
+): number;
 export function transactionmetadatumlabels_new(): number;
 export function transactionmetadatumlabels_len(a: number): number;
 export function transactionmetadatumlabels_get(a: number, b: number): number;
 export function transactionmetadatumlabels_add(a: number, b: number): void;
 export function __wbg_generaltransactionmetadata_free(a: number): void;
 export function generaltransactionmetadata_to_bytes(a: number, b: number): void;
-export function generaltransactionmetadata_from_bytes(a: number, b: number): number;
+export function generaltransactionmetadata_from_bytes(
+  a: number,
+  b: number,
+): number;
 export function generaltransactionmetadata_new(): number;
 export function generaltransactionmetadata_len(a: number): number;
-export function generaltransactionmetadata_insert(a: number, b: number, c: number): number;
+export function generaltransactionmetadata_insert(
+  a: number,
+  b: number,
+  c: number,
+): number;
 export function generaltransactionmetadata_get(a: number, b: number): number;
 export function generaltransactionmetadata_keys(a: number): number;
 export function __wbg_auxiliarydata_free(a: number): void;
@@ -583,13 +759,30 @@ export function auxiliarydata_native_scripts(a: number): number;
 export function auxiliarydata_set_native_scripts(a: number, b: number): void;
 export function auxiliarydata_plutus_scripts(a: number): number;
 export function auxiliarydata_set_plutus_scripts(a: number, b: number): void;
-export function encode_arbitrary_bytes_as_metadatum(a: number, b: number): number;
-export function decode_arbitrary_bytes_from_metadatum(a: number, b: number): void;
-export function encode_json_str_to_metadatum(a: number, b: number, c: number): number;
-export function decode_metadatum_to_json_str(a: number, b: number, c: number): void;
+export function encode_arbitrary_bytes_as_metadatum(
+  a: number,
+  b: number,
+): number;
+export function decode_arbitrary_bytes_from_metadatum(
+  a: number,
+  b: number,
+): void;
+export function encode_json_str_to_metadatum(
+  a: number,
+  b: number,
+  c: number,
+): number;
+export function decode_metadatum_to_json_str(
+  a: number,
+  b: number,
+  c: number,
+): void;
 export function __wbg_transactionunspentoutput_free(a: number): void;
 export function transactionunspentoutput_to_bytes(a: number, b: number): void;
-export function transactionunspentoutput_from_bytes(a: number, b: number): number;
+export function transactionunspentoutput_from_bytes(
+  a: number,
+  b: number,
+): number;
 export function transactionunspentoutput_new(a: number, b: number): number;
 export function transactionunspentoutput_input(a: number): number;
 export function transactionunspentoutput_output(a: number): number;
@@ -633,8 +826,16 @@ export function bigint_from_bytes(a: number, b: number): number;
 export function bigint_as_u64(a: number): number;
 export function bigint_from_str(a: number, b: number): number;
 export function bigint_to_str(a: number, b: number): void;
-export function make_daedalus_bootstrap_witness(a: number, b: number, c: number): number;
-export function make_icarus_bootstrap_witness(a: number, b: number, c: number): number;
+export function make_daedalus_bootstrap_witness(
+  a: number,
+  b: number,
+  c: number,
+): number;
+export function make_icarus_bootstrap_witness(
+  a: number,
+  b: number,
+  c: number,
+): number;
 export function make_vkey_witness(a: number, b: number): number;
 export function hash_auxiliary_data(a: number): number;
 export function hash_transaction(a: number): number;
@@ -643,36 +844,102 @@ export function hash_script_data(a: number, b: number, c: number): number;
 export function get_implicit_input(a: number, b: number, c: number): number;
 export function get_deposit(a: number, b: number, c: number): number;
 export function min_ada_required(a: number, b: number): number;
-export function encode_json_str_to_native_script(a: number, b: number, c: number, d: number, e: number): number;
-export function encrypt_with_password(a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number): void;
-export function decrypt_with_password(a: number, b: number, c: number, d: number, e: number): void;
+export function encode_json_str_to_native_script(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+  e: number,
+): number;
+export function encrypt_with_password(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+  e: number,
+  f: number,
+  g: number,
+  h: number,
+  i: number,
+): void;
+export function decrypt_with_password(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+  e: number,
+): void;
 export function __wbg_linearfee_free(a: number): void;
 export function linearfee_constant(a: number): number;
 export function linearfee_coefficient(a: number): number;
 export function linearfee_new(a: number, b: number): number;
 export function min_fee(a: number, b: number): number;
 export function __wbg_transactionbuilder_free(a: number): void;
-export function transactionbuilder_add_key_input(a: number, b: number, c: number, d: number): void;
-export function transactionbuilder_add_script_input(a: number, b: number, c: number, d: number): void;
-export function transactionbuilder_add_bootstrap_input(a: number, b: number, c: number, d: number): void;
-export function transactionbuilder_add_input(a: number, b: number, c: number, d: number): void;
-export function transactionbuilder_fee_for_input(a: number, b: number, c: number, d: number): number;
+export function transactionbuilder_add_key_input(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+): void;
+export function transactionbuilder_add_script_input(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+): void;
+export function transactionbuilder_add_bootstrap_input(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+): void;
+export function transactionbuilder_add_input(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+): void;
+export function transactionbuilder_fee_for_input(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+): number;
 export function transactionbuilder_add_output(a: number, b: number): void;
 export function transactionbuilder_fee_for_output(a: number, b: number): number;
 export function transactionbuilder_set_fee(a: number, b: number): void;
 export function transactionbuilder_set_ttl(a: number, b: number): void;
-export function transactionbuilder_set_validity_start_interval(a: number, b: number): void;
+export function transactionbuilder_set_validity_start_interval(
+  a: number,
+  b: number,
+): void;
 export function transactionbuilder_set_certs(a: number, b: number): void;
 export function transactionbuilder_set_withdrawals(a: number, b: number): void;
-export function transactionbuilder_set_auxiliary_data(a: number, b: number): void;
-export function transactionbuilder_set_prefer_pure_change(a: number, b: number): void;
-export function transactionbuilder_new(a: number, b: number, c: number, d: number, e: number, f: number): number;
+export function transactionbuilder_set_auxiliary_data(
+  a: number,
+  b: number,
+): void;
+export function transactionbuilder_set_prefer_pure_change(
+  a: number,
+  b: number,
+): void;
+export function transactionbuilder_new(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+  e: number,
+  f: number,
+): number;
 export function transactionbuilder_get_explicit_input(a: number): number;
 export function transactionbuilder_get_implicit_input(a: number): number;
 export function transactionbuilder_get_explicit_output(a: number): number;
 export function transactionbuilder_get_deposit(a: number): number;
 export function transactionbuilder_get_fee_if_set(a: number): number;
-export function transactionbuilder_add_change_if_needed(a: number, b: number): number;
+export function transactionbuilder_add_change_if_needed(
+  a: number,
+  b: number,
+): number;
 export function transactionbuilder_full_size(a: number): number;
 export function transactionbuilder_output_sizes(a: number, b: number): void;
 export function transactionbuilder_build(a: number): number;
@@ -688,7 +955,12 @@ export function bip32privatekey_from_bytes(a: number, b: number): number;
 export function bip32privatekey_as_bytes(a: number, b: number): void;
 export function bip32privatekey_from_bech32(a: number, b: number): number;
 export function bip32privatekey_to_bech32(a: number, b: number): void;
-export function bip32privatekey_from_bip39_entropy(a: number, b: number, c: number, d: number): number;
+export function bip32privatekey_from_bip39_entropy(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+): number;
 export function bip32privatekey_chaincode(a: number, b: number): void;
 export function __wbg_bip32publickey_free(a: number): void;
 export function bip32publickey_derive(a: number, b: number): number;
@@ -713,7 +985,12 @@ export function publickey_from_bech32(a: number, b: number): number;
 export function publickey_to_bech32(a: number, b: number): void;
 export function publickey_as_bytes(a: number, b: number): void;
 export function publickey_from_bytes(a: number, b: number): number;
-export function publickey_verify(a: number, b: number, c: number, d: number): number;
+export function publickey_verify(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+): number;
 export function publickey_hash(a: number): number;
 export function __wbg_vkey_free(a: number): void;
 export function vkey_to_bytes(a: number, b: number): void;
@@ -743,7 +1020,14 @@ export function bootstrapwitness_vkey(a: number): number;
 export function bootstrapwitness_signature(a: number): number;
 export function bootstrapwitness_chain_code(a: number, b: number): void;
 export function bootstrapwitness_attributes(a: number, b: number): void;
-export function bootstrapwitness_new(a: number, b: number, c: number, d: number, e: number, f: number): number;
+export function bootstrapwitness_new(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+  e: number,
+  f: number,
+): number;
 export function __wbg_bootstrapwitnesses_free(a: number): void;
 export function bootstrapwitnesses_new(): number;
 export function bootstrapwitnesses_len(a: number): number;
@@ -762,72 +1046,140 @@ export function ed25519signature_from_bech32(a: number, b: number): number;
 export function ed25519signature_from_hex(a: number, b: number): number;
 export function ed25519signature_from_bytes(a: number, b: number): number;
 export function __wbg_legacydaedalusprivatekey_free(a: number): void;
-export function legacydaedalusprivatekey_from_bytes(a: number, b: number): number;
+export function legacydaedalusprivatekey_from_bytes(
+  a: number,
+  b: number,
+): number;
 export function legacydaedalusprivatekey_as_bytes(a: number, b: number): void;
 export function legacydaedalusprivatekey_chaincode(a: number, b: number): void;
 export function __wbg_ed25519keyhash_free(a: number): void;
 export function ed25519keyhash_to_bytes(a: number, b: number): void;
-export function ed25519keyhash_to_bech32(a: number, b: number, c: number, d: number): void;
+export function ed25519keyhash_to_bech32(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+): void;
 export function ed25519keyhash_from_bech32(a: number, b: number): number;
 export function ed25519keyhash_from_bytes(a: number, b: number): number;
 export function __wbg_scripthash_free(a: number): void;
 export function scripthash_to_bytes(a: number, b: number): void;
-export function scripthash_to_bech32(a: number, b: number, c: number, d: number): void;
+export function scripthash_to_bech32(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+): void;
 export function scripthash_from_bech32(a: number, b: number): number;
 export function scripthash_from_bytes(a: number, b: number): number;
 export function __wbg_transactionhash_free(a: number): void;
 export function transactionhash_to_bytes(a: number, b: number): void;
-export function transactionhash_to_bech32(a: number, b: number, c: number, d: number): void;
+export function transactionhash_to_bech32(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+): void;
 export function transactionhash_from_bech32(a: number, b: number): number;
 export function transactionhash_from_bytes(a: number, b: number): number;
 export function __wbg_genesisdelegatehash_free(a: number): void;
 export function genesisdelegatehash_to_bytes(a: number, b: number): void;
-export function genesisdelegatehash_to_bech32(a: number, b: number, c: number, d: number): void;
+export function genesisdelegatehash_to_bech32(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+): void;
 export function genesisdelegatehash_from_bech32(a: number, b: number): number;
 export function genesisdelegatehash_from_bytes(a: number, b: number): number;
 export function __wbg_genesishash_free(a: number): void;
 export function genesishash_to_bytes(a: number, b: number): void;
-export function genesishash_to_bech32(a: number, b: number, c: number, d: number): void;
+export function genesishash_to_bech32(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+): void;
 export function genesishash_from_bech32(a: number, b: number): number;
 export function genesishash_from_bytes(a: number, b: number): number;
 export function __wbg_auxiliarydatahash_free(a: number): void;
 export function auxiliarydatahash_to_bytes(a: number, b: number): void;
-export function auxiliarydatahash_to_bech32(a: number, b: number, c: number, d: number): void;
+export function auxiliarydatahash_to_bech32(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+): void;
 export function auxiliarydatahash_from_bech32(a: number, b: number): number;
 export function auxiliarydatahash_from_bytes(a: number, b: number): number;
 export function __wbg_poolmetadatahash_free(a: number): void;
 export function poolmetadatahash_to_bytes(a: number, b: number): void;
-export function poolmetadatahash_to_bech32(a: number, b: number, c: number, d: number): void;
+export function poolmetadatahash_to_bech32(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+): void;
 export function poolmetadatahash_from_bech32(a: number, b: number): number;
 export function poolmetadatahash_from_bytes(a: number, b: number): number;
 export function __wbg_vrfkeyhash_free(a: number): void;
 export function vrfkeyhash_to_bytes(a: number, b: number): void;
-export function vrfkeyhash_to_bech32(a: number, b: number, c: number, d: number): void;
+export function vrfkeyhash_to_bech32(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+): void;
 export function vrfkeyhash_from_bech32(a: number, b: number): number;
 export function vrfkeyhash_from_bytes(a: number, b: number): number;
 export function __wbg_blockhash_free(a: number): void;
 export function blockhash_to_bytes(a: number, b: number): void;
-export function blockhash_to_bech32(a: number, b: number, c: number, d: number): void;
+export function blockhash_to_bech32(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+): void;
 export function blockhash_from_bech32(a: number, b: number): number;
 export function blockhash_from_bytes(a: number, b: number): number;
 export function __wbg_datahash_free(a: number): void;
 export function datahash_to_bytes(a: number, b: number): void;
-export function datahash_to_bech32(a: number, b: number, c: number, d: number): void;
+export function datahash_to_bech32(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+): void;
 export function datahash_from_bech32(a: number, b: number): number;
 export function datahash_from_bytes(a: number, b: number): number;
 export function __wbg_scriptdatahash_free(a: number): void;
 export function scriptdatahash_to_bytes(a: number, b: number): void;
-export function scriptdatahash_to_bech32(a: number, b: number, c: number, d: number): void;
+export function scriptdatahash_to_bech32(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+): void;
 export function scriptdatahash_from_bech32(a: number, b: number): number;
 export function scriptdatahash_from_bytes(a: number, b: number): number;
 export function __wbg_vrfvkey_free(a: number): void;
 export function vrfvkey_to_bytes(a: number, b: number): void;
-export function vrfvkey_to_bech32(a: number, b: number, c: number, d: number): void;
+export function vrfvkey_to_bech32(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+): void;
 export function vrfvkey_from_bech32(a: number, b: number): number;
 export function vrfvkey_from_bytes(a: number, b: number): number;
 export function __wbg_kesvkey_free(a: number): void;
 export function kesvkey_to_bytes(a: number, b: number): void;
-export function kesvkey_to_bech32(a: number, b: number, c: number, d: number): void;
+export function kesvkey_to_bech32(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+): void;
 export function kesvkey_from_bech32(a: number, b: number): number;
 export function kesvkey_from_bytes(a: number, b: number): number;
 export function __wbg_kessignature_free(a: number): void;
@@ -874,7 +1226,12 @@ export function byronaddress_from_address(a: number): number;
 export function __wbg_address_free(a: number): void;
 export function address_from_bytes(a: number, b: number): number;
 export function address_to_bytes(a: number, b: number): void;
-export function address_to_bech32(a: number, b: number, c: number, d: number): void;
+export function address_to_bech32(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+): void;
 export function address_from_bech32(a: number, b: number): number;
 export function address_network_id(a: number): number;
 export function __wbg_baseaddress_free(a: number): void;
@@ -994,7 +1351,12 @@ export function redeemer_tag(a: number): number;
 export function redeemer_index(a: number): number;
 export function redeemer_data(a: number): number;
 export function redeemer_ex_units(a: number): number;
-export function redeemer_new(a: number, b: number, c: number, d: number): number;
+export function redeemer_new(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+): number;
 export function __wbg_redeemertag_free(a: number): void;
 export function redeemertag_to_bytes(a: number, b: number): void;
 export function redeemertag_from_bytes(a: number, b: number): number;

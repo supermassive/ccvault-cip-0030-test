@@ -1,205 +1,188 @@
 <template>
-
-  <api-test-ui :api-test="apiTest" :perform-check="performCheck"/>
-
+  <api-test-ui :api-test="apiTest" :perform-check="performCheck" />
 </template>
 
 <script lang="ts">
+import { computed, defineComponent, reactive, ref } from "vue";
 
-import {
-  computed,
-  defineComponent,
-  reactive,
-  ref
-}                             from 'vue'
-
-import {
-  addLogImportant,
-  LogLevel,
-  useApiLog
-}                             from '../useApiLog'
+import { addLogImportant, LogLevel, useApiLog } from "../useApiLog";
 
 import {
   ApiTest,
   ApiTestStatus,
   createApiTest,
-  setApiTestStatus
-}                             from '../lib/ApiTest'
+  setApiTestStatus,
+} from "../lib/ApiTest";
 
-import {
-  isArray,
-  returnsPromise,
-}                             from '../lib/utils'
+import { isArray, returnsPromise } from "../lib/utils";
 
-import { addApiTest }         from '../lib/ApiTestSuite'
+import { addApiTest } from "../lib/ApiTestSuite";
 
-import {
-  decodeCborUtxo,
-  logUtxo
-}                             from '../lib/utilsCbor'
+import { decodeCborUtxo, logUtxo } from "../lib/utilsCbor";
 
-import ApiTestUi              from './apiTestUi.vue'
+import ApiTestUi from "./apiTestUi.vue";
 
 export default defineComponent({
-
-  name:                       'checkGetUtxosAmount',
+  name: "checkGetUtxosAmount",
 
   props: {
-
-    getUtxos:                 { type: Function, required: true },
-    utxoAmount:               { type: String, required: true },
-    logIdSuffix:              { type: String, required: true }
+    getUtxos: { type: Function, required: true },
+    utxoAmount: { type: String, required: true },
+    logIdSuffix: { type: String, required: true },
   },
 
   components: {
-
-    ApiTestUi
+    ApiTestUi,
   },
 
   setup(props) {
-
     const {
-
       getLog,
       clearLog,
 
       addLogSucceeded,
-      addLogError
-    }                         = useApiLog()
+      addLogError,
+    } = useApiLog();
 
-    const apiTest: ApiTest    = reactive<ApiTest>(
-      createApiTest(
-        'getUtxos(amount)',
-        'Check',
-        [
-          '- check getUtxos parameter amount and paginate, amount: ' + props.utxoAmount
-        ]
-      )
-    )
+    const apiTest: ApiTest = reactive<ApiTest>(
+      createApiTest("getUtxos(amount)", "Check", [
+        "- check getUtxos parameter amount and paginate, amount: " +
+          props.utxoAmount,
+      ]),
+    );
 
-    const logId               = apiTest.label
-    const logs                = getLog(logId)
+    const logId = apiTest.label;
+    const logs = getLog(logId);
 
-    const showAllLogs         = ref(false)
+    const showAllLogs = ref(false);
 
-    const filteredLogs        = computed(() => {
-
-      return logs.filter(item => (item.level === LogLevel.error || item.level <= (showAllLogs.value ? LogLevel.error : LogLevel.important)))
-    })
+    const filteredLogs = computed(() => {
+      return logs.filter(
+        (item) =>
+          item.level === LogLevel.error ||
+          item.level <=
+            (showAllLogs.value ? LogLevel.error : LogLevel.important),
+      );
+    });
 
     function resetStatus() {
+      clearLog(logId);
 
-      clearLog(logId)
-
-      setApiTestStatus(apiTest, ApiTestStatus.idle)
+      setApiTestStatus(apiTest, ApiTestStatus.idle);
     }
 
-    resetStatus()
+    resetStatus();
 
-    addApiTest(apiTest)
+    addApiTest(apiTest);
 
     function setApiTestFailed(msg: string) {
-
-      addLogError(logId, '<b>'+msg+'</b>')
-      setApiTestStatus(apiTest, ApiTestStatus.failed)
+      addLogError(logId, "<b>" + msg + "</b>");
+      setApiTestStatus(apiTest, ApiTestStatus.failed);
     }
 
     async function performCheck() {
+      resetStatus();
 
-      resetStatus()
-
-      setApiTestStatus(apiTest, ApiTestStatus.running)
+      setApiTestStatus(apiTest, ApiTestStatus.running);
 
       try {
+        let r: any = await returnsPromise(logId, "getUtxos", props.getUtxos, [
+          props.utxoAmount,
+        ]);
 
-        let r: any            = await returnsPromise(logId, 'getUtxos', props.getUtxos, [ props.utxoAmount ])
-
-        if(!isArray(r))       { return setApiTestFailed('getUtxos: return type not array') }
-
-        addLogSucceeded(logId, '&bull; "getUtxos" returned: ' + r)
-
-        let ar : string[]     = r as string[]
-
-        for(const utxo of ar)  {
-
-          const decoded       = decodeCborUtxo(utxo)
-
-          addLogSucceeded(logId, '&bull; utxo valid cbor')
-
-          logUtxo(logId, decoded)
-          addLogImportant(logId, ' ')
+        if (!isArray(r)) {
+          return setApiTestFailed("getUtxos: return type not array");
         }
 
-        if(ar.length > 1) {
+        addLogSucceeded(logId, '&bull; "getUtxos" returned: ' + r);
 
-          addLogImportant(logId, 'Testing Paginate: page 1, limit 1')
-          addLogImportant(logId, ' ')
+        let ar: string[] = r as string[];
 
-          r                   = await returnsPromise(logId, 'getUtxos', props.getUtxos, [ props.utxoAmount, { page: 1, limit: 1 } ])
+        for (const utxo of ar) {
+          const decoded = decodeCborUtxo(utxo);
 
-          if(!isArray(r))     { return setApiTestFailed('getUtxos: return type not array') }
+          addLogSucceeded(logId, "&bull; utxo valid cbor");
 
-          addLogSucceeded(logId, '&bull; "getUtxos" returned: ' + r)
+          logUtxo(logId, decoded);
+          addLogImportant(logId, " ");
+        }
 
-          ar                  = r as string[]
+        if (ar.length > 1) {
+          addLogImportant(logId, "Testing Paginate: page 1, limit 1");
+          addLogImportant(logId, " ");
 
-          for(const utxo of ar) {
+          r = await returnsPromise(logId, "getUtxos", props.getUtxos, [
+            props.utxoAmount,
+            { page: 1, limit: 1 },
+          ]);
 
-            const decoded     = decodeCborUtxo(utxo)
+          if (!isArray(r)) {
+            return setApiTestFailed("getUtxos: return type not array");
+          }
 
-            addLogSucceeded(logId, '&bull; utxo valid cbor')
+          addLogSucceeded(logId, '&bull; "getUtxos" returned: ' + r);
 
-            logUtxo(logId, decoded)
-            addLogImportant(logId, ' ')
+          ar = r as string[];
+
+          for (const utxo of ar) {
+            const decoded = decodeCborUtxo(utxo);
+
+            addLogSucceeded(logId, "&bull; utxo valid cbor");
+
+            logUtxo(logId, decoded);
+            addLogImportant(logId, " ");
           }
         }
 
-        addLogImportant(logId, 'Testing Paginate: page 9999999, limit 1')
-        addLogImportant(logId, ' ')
+        addLogImportant(logId, "Testing Paginate: page 9999999, limit 1");
+        addLogImportant(logId, " ");
 
         try {
+          await returnsPromise(logId, "getUtxos", props.getUtxos, [
+            props.utxoAmount,
+            { page: 9999999, limit: 1 },
+          ]);
 
-                                await returnsPromise(logId, 'getUtxos', props.getUtxos, [ props.utxoAmount, { page: 9999999, limit: 1 } ])
-
-          addLogError(logId, 'getUtxos: No error received')
-          return setApiTestFailed('No error received.')
-
+          addLogError(logId, "getUtxos: No error received");
+          return setApiTestFailed("No error received.");
         } catch (e) {
-
-          addLogImportant(logId, '&bull; "getUtxos" returned error: ' + e)
+          addLogImportant(logId, '&bull; "getUtxos" returned error: ' + e);
         }
 
         try {
+          r = await returnsPromise(logId, "getUtxos", props.getUtxos, [
+            "ffffffffff",
+            { page: 1, limit: 1 },
+          ]);
 
-          r                   = await returnsPromise(logId, 'getUtxos', props.getUtxos, [ 'ffffffffff', { page: 1, limit: 1 } ])
-
-          addLogError(logId, 'getUtxos: No error received ' + JSON.stringify(r, null, 2))
-          return setApiTestFailed('No error received.')
-
+          addLogError(
+            logId,
+            "getUtxos: No error received " + JSON.stringify(r, null, 2),
+          );
+          return setApiTestFailed("No error received.");
         } catch (e) {
-
-          addLogImportant(logId, '&bull; "getUtxos" returned error: ' + JSON.stringify(e, null, 2))
+          addLogImportant(
+            logId,
+            '&bull; "getUtxos" returned error: ' + JSON.stringify(e, null, 2),
+          );
         }
-
-      } catch(e: any) {
-
-        addLogError(logId, 'getUtxos: error: ' + JSON.stringify(e, null, 2))
-        return setApiTestFailed(e.message)
+      } catch (e: any) {
+        addLogError(logId, "getUtxos: error: " + JSON.stringify(e, null, 2));
+        return setApiTestFailed(e.message);
       }
 
-      setApiTestStatus(apiTest, ApiTestStatus.succeeded)
+      setApiTestStatus(apiTest, ApiTestStatus.succeeded);
     }
 
-    performCheck()
+    performCheck();
 
     return {
-
       logs: filteredLogs,
       showAllLogs,
 
       apiTest,
-      performCheck
-    }
-  }
-})
+      performCheck,
+    };
+  },
+});
 </script>

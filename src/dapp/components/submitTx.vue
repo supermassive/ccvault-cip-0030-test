@@ -1,138 +1,113 @@
 <template>
-
-  <api-test-ui :api-test="apiTest" :perform-check="performCheck"/>
-
+  <api-test-ui :api-test="apiTest" :perform-check="performCheck" />
 </template>
 
 <script lang="ts">
+import { computed, defineComponent, reactive, ref } from "vue";
 
-import {
-  computed,
-  defineComponent,
-  reactive,
-  ref
-}                             from 'vue'
-
-import {
-  addLogImportant,
-  LogLevel,
-  useApiLog
-}                             from '../useApiLog'
+import { addLogImportant, LogLevel, useApiLog } from "../useApiLog";
 
 import {
   ApiTest,
   ApiTestStatus,
   createApiTest,
-  setApiTestStatus
-}                             from '../lib/ApiTest'
+  setApiTestStatus,
+} from "../lib/ApiTest";
 
-import {
-  isString,
-  returnsPromise,
-}                             from '../lib/utils'
+import { isString, returnsPromise } from "../lib/utils";
 
-import { addApiTest }         from '../lib/ApiTestSuite'
+import { addApiTest } from "../lib/ApiTestSuite";
 
-import ApiTestUi              from './apiTestUi.vue'
+import ApiTestUi from "./apiTestUi.vue";
 
 export default defineComponent({
-
-  name:                       'checkSubmitTx',
+  name: "checkSubmitTx",
 
   props: {
-
-    submitTx:                 { type: Function, required: true },
-    serializedTx:             { type: String, required: true },
-    logIdSuffix:              { type: String, required: true }
+    submitTx: { type: Function, required: true },
+    serializedTx: { type: String, required: true },
+    logIdSuffix: { type: String, required: true },
   },
 
   components: {
-
-    ApiTestUi
+    ApiTestUi,
   },
 
   setup(props) {
-
     const {
-
       getLog,
       clearLog,
 
       addLogSucceeded,
-      addLogError
-    }                         = useApiLog()
+      addLogError,
+    } = useApiLog();
 
-    const apiTest: ApiTest    = reactive<ApiTest>(
-      createApiTest(
-        'submitTx',
-        'Check',
-        [
-          '- check submitTx'
-        ]
-      )
-    )
+    const apiTest: ApiTest = reactive<ApiTest>(
+      createApiTest("submitTx", "Check", ["- check submitTx"]),
+    );
 
-    const logId               = apiTest.label
-    const logs                = getLog(logId)
+    const logId = apiTest.label;
+    const logs = getLog(logId);
 
-    const showAllLogs         = ref(false)
+    const showAllLogs = ref(false);
 
-    const filteredLogs        = computed(() => {
-
-      return logs.filter(item => (item.level === LogLevel.error || item.level <= (showAllLogs.value ? LogLevel.error : LogLevel.important)))
-    })
+    const filteredLogs = computed(() => {
+      return logs.filter(
+        (item) =>
+          item.level === LogLevel.error ||
+          item.level <=
+            (showAllLogs.value ? LogLevel.error : LogLevel.important),
+      );
+    });
 
     function resetStatus() {
+      clearLog(logId);
 
-      clearLog(logId)
-
-      setApiTestStatus(apiTest, ApiTestStatus.idle)
+      setApiTestStatus(apiTest, ApiTestStatus.idle);
     }
 
-    resetStatus()
+    resetStatus();
 
-    addApiTest(apiTest)
+    addApiTest(apiTest);
 
     function setApiTestFailed(msg: string) {
-
-      addLogError(logId, '<b>'+msg+'</b>')
-      setApiTestStatus(apiTest, ApiTestStatus.failed)
+      addLogError(logId, "<b>" + msg + "</b>");
+      setApiTestStatus(apiTest, ApiTestStatus.failed);
     }
 
     async function performCheck() {
+      resetStatus();
 
-      resetStatus()
-
-      setApiTestStatus(apiTest, ApiTestStatus.running)
+      setApiTestStatus(apiTest, ApiTestStatus.running);
 
       try {
+        let r: any = await returnsPromise(logId, "submitTx", props.submitTx, [
+          props.serializedTx,
+        ]);
 
-        let r: any            = await returnsPromise(logId, 'submitTx', props.submitTx, [ props.serializedTx ])
+        if (!isString(r)) {
+          return setApiTestFailed("submitTx: return type not string");
+        }
 
-        if(!isString(r))      { return setApiTestFailed('submitTx: return type not string') }
-
-        addLogSucceeded(logId, '&bull; "submitTx" returned: ' + r)
-        addLogImportant(logId, r)
-
-      } catch(e: any) {
-
-        addLogError(logId, 'submitTx: error: ' + JSON.stringify(e, null, 2))
-        return setApiTestFailed(e.message)
+        addLogSucceeded(logId, '&bull; "submitTx" returned: ' + r);
+        addLogImportant(logId, r);
+      } catch (e: any) {
+        addLogError(logId, "submitTx: error: " + JSON.stringify(e, null, 2));
+        return setApiTestFailed(e.message);
       }
 
-      setApiTestStatus(apiTest, ApiTestStatus.succeeded)
+      setApiTestStatus(apiTest, ApiTestStatus.succeeded);
     }
 
     // performCheck()
 
     return {
-
       logs: filteredLogs,
       showAllLogs,
 
       apiTest,
-      performCheck
-    }
-  }
-})
+      performCheck,
+    };
+  },
+});
 </script>
