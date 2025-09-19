@@ -288,3 +288,85 @@ export const signTxLocally = (
 
   return null;
 };
+
+export const MakeTxForSigning = () => {
+  const txBuilder = CSL.TransactionBuilder.new(
+    CSL.TransactionBuilderConfigBuilder.new()
+      .fee_algo(
+        CSL.LinearFee.new(
+          CSL.BigNum.from_str("44"),
+          CSL.BigNum.from_str("155381"),
+        ),
+      )
+      .coins_per_utxo_byte(CSL.BigNum.from_str("34482"))
+      .pool_deposit(CSL.BigNum.from_str("500000000"))
+      .key_deposit(CSL.BigNum.from_str("2000000"))
+      .ex_unit_prices(
+        CSL.ExUnitPrices.new(
+          CSL.UnitInterval.new(
+            CSL.BigNum.from_str("577"),
+            CSL.BigNum.from_str("10000"),
+          ),
+          CSL.UnitInterval.new(
+            CSL.BigNum.from_str("721"),
+            CSL.BigNum.from_str("10000000"),
+          ),
+        ),
+      )
+      .max_value_size(5000)
+      .max_tx_size(16384)
+      .build(),
+  );
+  // const utxos = [
+  //   "82825820731224c9d2bc3528578009fec9f9e34a67110aca2bd4dde0f050845a2daf660d0082583900436075347d6a452eba4289ae345a8eb15e73eb80979a7e817d988fc56c8e2cfd5a9478355fa1d60759f93751237af3299d7faa947023e493821a001deabfa1581c9a5e0d55cdf4ce4e19c8acbff7b4dafc890af67a594a4c46d7dd1c0fa14001",
+  //   "82825820A04996D5EF87FDECE0C74625F02EE5C1497A06E0E476C5095A6B0626B295074A00825839001772F234940519E71318BB9C5C8AD6EACFE8FD91A509050624E3855E6C8E2CFD5A9478355FA1D60759F93751237AF3299D7FAA947023E4931A00E4E1C0",
+  // ];
+
+  // const CSLUtxos = CSL.TransactionUnspentOutputs.new();
+  // for (let i = 0; i < utxos.length; i++) {
+  //   const utxo = CSL.TransactionUnspentOutput.from_hex(utxos[i]);
+  //   CSLUtxos.add(utxo);
+  // }
+  // const CSLChangeConfig = CSL.ChangeConfig.new(
+  //   CSL.Address.from_bech32(
+  //     "addr_test1qqzf7fhgm0gf370ngxgpskg5c3kgp2g0u4ltxlrmsvumaztv3ck06k550q64lgwkqavljd63yda0x2va074fguprujfs43mc83",
+  //   ),
+  // );
+
+  const inputsBuilder = CSL.TxInputsBuilder.new();
+  // inputsBuilder.add_regular_utxo(
+  //   CSL.TransactionUnspentOutput.from_hex(
+  //     "82825820731224c9d2bc3528578009fec9f9e34a67110aca2bd4dde0f050845a2daf660d0082583900436075347d6a452eba4289ae345a8eb15e73eb80979a7e817d988fc56c8e2cfd5a9478355fa1d60759f93751237af3299d7faa947023e493821a001deabfa1581c9a5e0d55cdf4ce4e19c8acbff7b4dafc890af67a594a4c46d7dd1c0fa14001",
+  //   ),
+  // );
+  inputsBuilder.add_regular_utxo(
+    CSL.TransactionUnspentOutput.from_hex(
+      "82825820A04996D5EF87FDECE0C74625F02EE5C1497A06E0E476C5095A6B0626B295074A00825839001772F234940519E71318BB9C5C8AD6EACFE8FD91A509050624E3855E6C8E2CFD5A9478355FA1D60759F93751237AF3299D7FAA947023E4931A00E4E1C0",
+    ),
+  );
+
+  txBuilder.set_inputs(inputsBuilder);
+
+  const output = CSL.TransactionOutput.new(
+    CSL.Address.from_bech32(
+      "addr_test1qppkqaf5044y2t46g2y6udz636c4uultszte5l5p0kvgl3tv3ck06k550q64lgwkqavljd63yda0x2va074fguprujfsjre4xh",
+    ),
+    CSL.Value.new(CSL.BigNum.from_str("7758450")),
+  );
+  txBuilder.add_output(output);
+  txBuilder.set_fee(
+    txBuilder
+      .get_total_input()
+      .checked_sub(txBuilder.get_total_output())
+      .coin(),
+  );
+
+  // txBuilder.add_inputs_from_and_change(
+  //   CSLUtxos,
+  //   CSL.CoinSelectionStrategyCIP2.LargestFirstMultiAsset,
+  //   CSLChangeConfig,
+  // );
+
+  const transaction = txBuilder.build_tx();
+  return transaction;
+};
