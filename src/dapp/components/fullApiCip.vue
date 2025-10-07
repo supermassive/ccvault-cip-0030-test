@@ -50,6 +50,7 @@
   <check-sign-tx
     log-id-suffix="CIP"
     :sign-tx="signTxFunction"
+    :get-utxos="getUtxosFunction"
     v-if="signTxFunction && submitTxFunction"
     :submit-tx="submitTxFunction"
   />
@@ -223,8 +224,10 @@ export default defineComponent({
         getUtxosFunction.value = apiObj.getUtxos.bind(apiObj);
 
         getUsedAddressesFunction.value = apiObj.getUsedAddresses.bind(apiObj);
-        getUnusedAddressesFunction.value = apiObj.getUnusedAddresses.bind(apiObj);
-        getRewardAddressesFunction.value = apiObj.getRewardAddresses.bind(apiObj);
+        getUnusedAddressesFunction.value =
+          apiObj.getUnusedAddresses.bind(apiObj);
+        getRewardAddressesFunction.value =
+          apiObj.getRewardAddresses.bind(apiObj);
         getChangeAddressFunction.value = apiObj.getChangeAddress.bind(apiObj);
 
         signDataFunction.value = apiObj.signData.bind(apiObj);

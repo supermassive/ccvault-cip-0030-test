@@ -21,8 +21,8 @@ import {
   setApiTestStatus,
 } from "../lib/ApiTest";
 
-import { isString, returnsPromise } from "../lib/utils";
-import { signTxLocally } from "../lib/utilsCbor";
+import { isArray, returnsPromise } from "../lib/utils";
+import {  MakeTxForSigning } from "../lib/utilsCbor";
 
 import { addApiTest } from "../lib/ApiTestSuite";
 
@@ -33,6 +33,7 @@ export default defineComponent({
   name: "checkSignTx",
 
   props: {
+    getUtxos: { type: Function, required: true },
     signTx: { type: Function, required: true },
     submitTx: { type: Function, required: true },
     logIdSuffix: { type: String, required: true },
@@ -99,40 +100,22 @@ export default defineComponent({
       setApiTestStatus(apiTest, ApiTestStatus.running);
 
       try {
+        let utxos: any = await returnsPromise(logId, "getUtxos", props.getUtxos);
+
+        if (!isArray(utxos)) {
+          return setApiTestFailed("getUtxos: return type not array");
+        }
+
+        const tx = MakeTxForSigning(utxos)
+
+
+        addLogImportant(logId, "TX to sign: " + tx);
+
         let r: string = await returnsPromise(logId, "signTx", props.signTx, [
-          "",
-          false,
-          true,
+          tx, /*partial_sign=*/true
         ]);
+        addLogImportant(logId, "Signed TX: " + r);
 
-        if (!isString(r)) {
-          return setApiTestFailed("signTx: return type not string");
-        }
-
-        addLogSucceeded(logId, '&bull; "signTx" txBody: ' + r);
-
-        txBody.value = r;
-
-        r = await returnsPromise(logId, "signTx", props.signTx, [
-          txBody.value,
-          false,
-        ]);
-
-        if (!isString(r)) {
-          return setApiTestFailed("signTx: return type not string");
-        }
-
-        addLogSucceeded(logId, '&bull; "signTx" witnesses: ' + r);
-
-        witnesses.value = r;
-
-        addLogImportant(logId, r);
-
-        serializedTx.value = signTxLocally(
-          logId,
-          txBody.value,
-          witnesses.value,
-        );
       } catch (e: any) {
         serializedTx.value = null;
         addLogError(logId, "signTx: error: " + JSON.stringify(e, null, 2));

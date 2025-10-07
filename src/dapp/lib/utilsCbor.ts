@@ -1,6 +1,5 @@
 import { Buffer } from "buffer";
-
-import * as CSL from "src/dapp/lib/CardanoSerializationLib";
+import * as CSL from "@emurgo/cardano-serialization-lib-asmjs";
 
 import { addLogSucceeded, addLogError, addLogImportant } from "../useApiLog";
 
@@ -270,12 +269,16 @@ export const signTxLocally = (
   try {
     const body = CSL.TransactionBody.from_bytes(toUint8Array(txBody));
     const wit = CSL.TransactionWitnessSet.from_bytes(toUint8Array(witnessSet));
-    const txHash = CSL.hash_transaction(body);
+
     const signedTx = CSL.Transaction.new(body, wit);
+    const fixedTransaction = CSL.FixedTransaction.from_bytes(
+      signedTx.to_bytes(),
+    );
+    const txHash = fixedTransaction.transaction_hash();
 
     addLogImportant(
       logId,
-      "<b><i>seialized: " + toHexString(txHash.to_bytes()) + "</i></b>",
+      "<b><i>serialized: " + toHexString(txHash.to_bytes()) + "</i></b>",
     );
 
     return toHexString(signedTx.to_bytes());
@@ -284,4 +287,69 @@ export const signTxLocally = (
   }
 
   return null;
+};
+
+export const MakeTxForSigning = (utxos: string[]) => {
+  const txBuilder = CSL.TransactionBuilder.new(
+    CSL.TransactionBuilderConfigBuilder.new()
+      .fee_algo(
+        CSL.LinearFee.new(
+          CSL.BigNum.from_str("44"),
+          CSL.BigNum.from_str("155381"),
+        ),
+      )
+      .coins_per_utxo_byte(CSL.BigNum.from_str("34482"))
+      .pool_deposit(CSL.BigNum.from_str("500000000"))
+      .key_deposit(CSL.BigNum.from_str("2000000"))
+      .ex_unit_prices(
+        CSL.ExUnitPrices.new(
+          CSL.UnitInterval.new(
+            CSL.BigNum.from_str("577"),
+            CSL.BigNum.from_str("10000"),
+          ),
+          CSL.UnitInterval.new(
+            CSL.BigNum.from_str("721"),
+            CSL.BigNum.from_str("10000000"),
+          ),
+        ),
+      )
+      .max_value_size(5000)
+      .max_tx_size(16384)
+      .build(),
+  );
+
+  let totalBalance = CSL.BigNum.from_str("0");
+  let address_to = "";
+  for (let i = 0; i < utxos.length; i++) {
+    let utxo = CSL.TransactionUnspentOutput.from_hex(utxos[i]);
+    totalBalance = totalBalance.checked_add(utxo.output().amount().coin());
+    if (!address_to) {
+      address_to = utxo.output().address().to_bech32();
+    }
+  }
+
+  const output = CSL.TransactionOutput.new(
+    CSL.Address.from_bech32(address_to),
+    CSL.Value.new(totalBalance.div_floor(CSL.BigNum.from_str("2"))),
+  );
+  txBuilder.add_output(output);
+
+  const wasmUtxos = CSL.TransactionUnspentOutputs.new();
+  for (let i = 0; i < utxos.length; i++) {
+    let utxo = CSL.TransactionUnspentOutput.from_hex(utxos[i]);
+    totalBalance.checked_add(utxo.output().amount().coin());
+    wasmUtxos.add(CSL.TransactionUnspentOutput.from_hex(utxos[i]));
+  }
+  const wasmChangeConfig = CSL.ChangeConfig.new(
+    CSL.Address.from_bech32(address_to),
+  );
+
+  txBuilder.add_inputs_from_and_change(
+    wasmUtxos,
+    CSL.CoinSelectionStrategyCIP2.LargestFirstMultiAsset,
+    wasmChangeConfig,
+  );
+
+  const transaction = txBuilder.build_tx();
+  return transaction.to_hex();
 };

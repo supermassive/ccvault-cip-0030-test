@@ -90,18 +90,18 @@ export default defineComponent({
           logId,
           "signData",
           props.signData,
-          [props.addr, Buffer.from('hello').toString('hex')],
+          [props.addr, Buffer.from("hello").toString("hex")],
         );
 
         if (!isObject(r)) {
           return setApiTestFailed("signData: return type not object");
         }
 
-        const rString = JSON.stringify(r, null, 2)
+        const rString = JSON.stringify(r, null, 2);
 
         addLogSucceeded(logId, '&bull; "signData" signedData: ' + r);
 
-        signedData.value = rString
+        signedData.value = rString;
 
         addLogImportant(logId, rString);
       } catch (e: any) {
