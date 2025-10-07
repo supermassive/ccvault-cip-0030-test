@@ -50,6 +50,7 @@
   <check-sign-tx
     log-id-suffix="CIP"
     :sign-tx="signTxFunction"
+    :get-utxos="getUtxosFunction"
     v-if="signTxFunction && submitTxFunction"
     :submit-tx="submitTxFunction"
   />

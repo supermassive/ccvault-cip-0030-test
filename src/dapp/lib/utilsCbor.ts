@@ -289,7 +289,7 @@ export const signTxLocally = (
   return null;
 };
 
-export const MakeTxForSigning = () => {
+export const MakeTxForSigning = (utxos: string[]) => {
   const txBuilder = CSL.TransactionBuilder.new(
     CSL.TransactionBuilderConfigBuilder.new()
       .fee_algo(
@@ -317,56 +317,39 @@ export const MakeTxForSigning = () => {
       .max_tx_size(16384)
       .build(),
   );
-  // const utxos = [
-  //   "82825820731224c9d2bc3528578009fec9f9e34a67110aca2bd4dde0f050845a2daf660d0082583900436075347d6a452eba4289ae345a8eb15e73eb80979a7e817d988fc56c8e2cfd5a9478355fa1d60759f93751237af3299d7faa947023e493821a001deabfa1581c9a5e0d55cdf4ce4e19c8acbff7b4dafc890af67a594a4c46d7dd1c0fa14001",
-  //   "82825820A04996D5EF87FDECE0C74625F02EE5C1497A06E0E476C5095A6B0626B295074A00825839001772F234940519E71318BB9C5C8AD6EACFE8FD91A509050624E3855E6C8E2CFD5A9478355FA1D60759F93751237AF3299D7FAA947023E4931A00E4E1C0",
-  // ];
 
-  // const CSLUtxos = CSL.TransactionUnspentOutputs.new();
-  // for (let i = 0; i < utxos.length; i++) {
-  //   const utxo = CSL.TransactionUnspentOutput.from_hex(utxos[i]);
-  //   CSLUtxos.add(utxo);
-  // }
-  // const CSLChangeConfig = CSL.ChangeConfig.new(
-  //   CSL.Address.from_bech32(
-  //     "addr_test1qqzf7fhgm0gf370ngxgpskg5c3kgp2g0u4ltxlrmsvumaztv3ck06k550q64lgwkqavljd63yda0x2va074fguprujfs43mc83",
-  //   ),
-  // );
-
-  const inputsBuilder = CSL.TxInputsBuilder.new();
-  // inputsBuilder.add_regular_utxo(
-  //   CSL.TransactionUnspentOutput.from_hex(
-  //     "82825820731224c9d2bc3528578009fec9f9e34a67110aca2bd4dde0f050845a2daf660d0082583900436075347d6a452eba4289ae345a8eb15e73eb80979a7e817d988fc56c8e2cfd5a9478355fa1d60759f93751237af3299d7faa947023e493821a001deabfa1581c9a5e0d55cdf4ce4e19c8acbff7b4dafc890af67a594a4c46d7dd1c0fa14001",
-  //   ),
-  // );
-  inputsBuilder.add_regular_utxo(
-    CSL.TransactionUnspentOutput.from_hex(
-      "82825820A04996D5EF87FDECE0C74625F02EE5C1497A06E0E476C5095A6B0626B295074A00825839001772F234940519E71318BB9C5C8AD6EACFE8FD91A509050624E3855E6C8E2CFD5A9478355FA1D60759F93751237AF3299D7FAA947023E4931A00E4E1C0",
-    ),
-  );
-
-  txBuilder.set_inputs(inputsBuilder);
+  let totalBalance = CSL.BigNum.from_str("0");
+  let address_to = "";
+  for (let i = 0; i < utxos.length; i++) {
+    let utxo = CSL.TransactionUnspentOutput.from_hex(utxos[i]);
+    totalBalance = totalBalance.checked_add(utxo.output().amount().coin());
+    if (!address_to) {
+      address_to = utxo.output().address().to_bech32();
+    }
+  }
 
   const output = CSL.TransactionOutput.new(
-    CSL.Address.from_bech32(
-      "addr_test1qppkqaf5044y2t46g2y6udz636c4uultszte5l5p0kvgl3tv3ck06k550q64lgwkqavljd63yda0x2va074fguprujfsjre4xh",
-    ),
-    CSL.Value.new(CSL.BigNum.from_str("7758450")),
+    CSL.Address.from_bech32(address_to),
+    CSL.Value.new(totalBalance.div_floor(CSL.BigNum.from_str("2"))),
   );
   txBuilder.add_output(output);
-  txBuilder.set_fee(
-    txBuilder
-      .get_total_input()
-      .checked_sub(txBuilder.get_total_output())
-      .coin(),
+
+  const wasmUtxos = CSL.TransactionUnspentOutputs.new();
+  for (let i = 0; i < utxos.length; i++) {
+    let utxo = CSL.TransactionUnspentOutput.from_hex(utxos[i]);
+    totalBalance.checked_add(utxo.output().amount().coin());
+    wasmUtxos.add(CSL.TransactionUnspentOutput.from_hex(utxos[i]));
+  }
+  const wasmChangeConfig = CSL.ChangeConfig.new(
+    CSL.Address.from_bech32(address_to),
   );
 
-  // txBuilder.add_inputs_from_and_change(
-  //   CSLUtxos,
-  //   CSL.CoinSelectionStrategyCIP2.LargestFirstMultiAsset,
-  //   CSLChangeConfig,
-  // );
+  txBuilder.add_inputs_from_and_change(
+    wasmUtxos,
+    CSL.CoinSelectionStrategyCIP2.LargestFirstMultiAsset,
+    wasmChangeConfig,
+  );
 
   const transaction = txBuilder.build_tx();
-  return transaction;
+  return transaction.to_hex();
 };

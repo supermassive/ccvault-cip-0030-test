@@ -50,6 +50,7 @@
   <check-sign-tx
     log-id-suffix="legacy"
     :sign-tx="signTxFunction"
+    :get-utxos="getUtxosFunction"
     v-if="signTxFunction && submitTxFunction"
     :submit-tx="submitTxFunction"
   />
