@@ -298,7 +298,7 @@ export const MakeTxForSigning = (utxos: string[]) => {
           CSL.BigNum.from_str("155381"),
         ),
       )
-      .coins_per_utxo_byte(CSL.BigNum.from_str("34482"))
+      .coins_per_utxo_byte(CSL.BigNum.from_str("4310"))
       .pool_deposit(CSL.BigNum.from_str("500000000"))
       .key_deposit(CSL.BigNum.from_str("2000000"))
       .ex_unit_prices(
